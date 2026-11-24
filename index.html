@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Анна Иванова — Психолог</title>
+<style>
+  /* Базовые настройки */
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Georgia', serif; /* Спокойный шрифт с засечками */
+    background: #f9f6f0; /* Теплый бежевый фон */
+    color: #3a3a3a;
+    line-height: 1.7;
+  }
+  h1, h2, h3, .logo { font-family: 'Segoe UI', Tahoma, sans-serif; }
+  a { text-decoration: none; color: inherit; }
+
+  /* Шапка */
+  header {
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    background: rgba(249, 246, 240, 0.95);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid #e0d8c8;
+  }
+  .nav {
+    max-width: 1000px; margin: auto; padding: 20px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .logo { font-size: 1.2rem; font-weight: 700; color: #5c6b73; letter-spacing: 1px; }
+  .nav-links { display: flex; gap: 24px; }
+  .nav-links a { font-size: 0.95rem; color: #5c6b73; transition: 0.3s; }
+  .nav-links a:hover { color: #8c7a6b; }
+  
+  .btn {
+    display: inline-block; padding: 14px 32px; border-radius: 30px;
+    background: #8c7a6b; color: #fff; font-weight: 500; transition: 0.3s;
+    border: none; cursor: pointer; font-size: 1rem; font-family: 'Segoe UI', sans-serif;
+  }
+  .btn:hover { background: #6e5f52; transform: translateY(-2px); }
+  .btn-outline { background: transparent; border: 1px solid #8c7a6b; color: #8c7a6b; }
+  .btn-outline:hover { background: #8c7a6b; color: #fff; }
+
+  /* Главный экран */
+  .hero {
+    min-height: 90vh; display: flex; align-items: center; justify-content: center;
+    text-align: center; padding: 140px 20px 80px;
+  }
+  .hero-content { max-width: 800px; }
+  .hero h1 { font-size: 3rem; color: #4a5a63; margin-bottom: 20px; line-height: 1.2; }
+  .hero p { font-size: 1.2rem; color: #6b6b6b; margin-bottom: 40px; }
+
+  /* Секции */
+  section { padding: 90px 20px; }
+  .container { max-width: 900px; margin: auto; }
+  .section-title { text-align: center; margin-bottom: 50px; }
+  .section-title h2 { font-size: 2.2rem; color: #4a5a63; margin-bottom: 15px; }
+  .section-title p { color: #888; font-size: 1.1rem; }
+
+  /* О себе */
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 2fr; gap: 40px; align-items: center;
+  }
+  .about-photo {
+    width: 100%; aspect-ratio: 1; border-radius: 50%;
+    background: #e0d8c8; display: flex; align-items: center; justify-content: center;
+    font-size: 4rem; color: #8c7a6b; border: 4px solid #fff; box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  }
+  .about-text h3 { margin-bottom: 15px; color: #4a5a63; }
+  .about-text p { margin-bottom: 15px; color: #555; }
+
+  /* Запросы */
+  .topics { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+  .topic-card {
+    background: #fff; padding: 30px; border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.03); transition: 0.3s; border: 1px solid #f0ece4;
+  }
+  .topic-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(140,122,107,0.1); }
+  .topic-card h4 { color: #8c7a6b; margin-bottom: 10px; font-size: 1.1rem; }
+
+  /* Услуги и цены */
+  .price-card {
+    background: #fff; border-radius: 20px; padding: 40px; margin-bottom: 20px;
+    display: flex; justify-content: space-between; align-items: center;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.03); border: 1px solid #f0ece4;
+  }
+  .price-card h3 { color: #4a5a63; margin-bottom: 5px; }
+  .price-card p { color: #888; font-size: 0.95rem; }
+  .price { font-size: 1.5rem; font-weight: bold; color: #8c7a6b; white-space: nowrap; }
+
+  /* Как проходит встреча */
+  .steps { counter-reset: step; }
+  .step {
+    position: relative; padding-left: 60px; margin-bottom: 40px;
+  }
+  .step::before {
+    counter-increment: step; content: counter(step);
+    position: absolute; left: 0; top: 0; width: 40px; height: 40px;
+    background: #8c7a6b; color: #fff; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: bold; font-family: 'Segoe UI', sans-serif;
+  }
+  .step h4 { margin-bottom: 5px; color: #4a5a63; font-size: 1.2rem; }
+
+  /* Форма */
+  .contact-section { background: #e8e1d5; }
+  form {
+    max-width: 500px; margin: auto; display: grid; gap: 15px;
+  }
+  input, textarea {
+    width: 100%; padding: 16px; border-radius: 12px;
+    border: 1px solid #d0c8b8; background: #fff; font-family: inherit;
+    font-size: 1rem; color: #333; outline: none; transition: 0.3s;
+  }
+  input:focus, textarea:focus { border-color: #8c7a6b; }
+  textarea { resize: vertical; min-height: 120px; }
+  form .btn { width: 100%; margin-top: 10px; }
+
+  /* Подвал */
+  footer { text-align: center; padding: 40px 20px; color: #888; font-size: 0.9rem; background: #f9f6f0; border-top: 1px solid #e0d8c8; }
+
+  /* Адаптив */
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .hero h1 { font-size: 2.2rem; }
+    .about-grid { grid-template-columns: 1fr; text-align: center; }
+    .about-photo { max-width: 200px; margin: auto; }
+    .price-card { flex-direction: column; text-align: center; gap: 15px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="nav">
+    <div class="logo">Анна Иванова</div>
+    <div class="nav-links">
+      <a href="#about">Обо мне</a>
+      <a href="#topics">Запросы</a>
+      <a href="#prices">Услуги</a>
+      <a href="#contact">Записаться</a>
+    </div>
+    <a href="#contact" class="btn" style="padding: 10px 20px; font-size: 0.9rem;">Консультация</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-content">
+    <h1>Бережный путь к себе</h1>
+    <p>Помогаю справиться с тревогой, выстроить гармоничные отношения и найти внутреннюю опору. Онлайн-консультации в безопасной и доверительной обстановке.</p>
+    <a href="#contact" class="btn">Записаться на первую встречу</a>
+  </div>
+</section>
+
+<section id="about" style="background: #fff;">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-photo">👩‍⚕️</div> <!-- Здесь можно заменить на реальное фото -->
+      <div class="about-text">
+        <h3>Здравствуйте, меня зовут Анна</h3>
+        <p>Я — практикующий психолог. В своей работе я создаю пространство, где вы можете быть собой без осуждения. Мой подход основан на уважении к вашей уникальной истории и бережном отношении к вашим чувствам.</p>
+        <p>Помогаю взрослым людям справляться с жизненными кризисами, находить ресурс и выстраивать здоровые отношения с собой и окружающими.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="topics">
+  <div class="container">
+    <div class="section-title">
+      <h2>С какими запросами я работаю</h2>
+      <p>Если вы узнали себя в одном из пунктов — мы сможем найти решение вместе</p>
+    </div>
+    <div class="topics">
+      <div class="topic-card">
+        <h4>Тревога и страхи</h4>
+        <p>Постоянное беспокойство, панические атаки, навязчивые мысли, страх будущего.</p>
+      </div>
+      <div class="topic-card">
+        <h4>Отношения</h4>
+        <p>Сложности в паре, непонимание с близкими, повторяющиеся сценарии, созависимость.</p>
+      </div>
+      <div class="topic-card">
+        <h4>Самооценка</h4>
+        <p>Неуверенность в себе, синдром самозванца, чувство "я недостаточно хорош(а)".</p>
+      </div>
+      <div class="topic-card">
+        <h4>Выгорание и стресс</h4>
+        <p>Потеря сил, апатия, отсутствие желаний, хроническая усталость.</p>
+      </div>
+      <div class="topic-card">
+        <h4>Жизненные кризисы</h4>
+        <p>Развод, потеря близких, смена работы, поиск смысла и нового пути.</p>
+      </div>
+      <div class="topic-card">
+        <h4>Границы и конфликты</h4>
+        <p>Неумение отказывать, чувство вины, сложности в отстаивании своей позиции.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="prices" style="background: #fff;">
+  <div class="container">
+    <div class="section-title">
+      <h2>Услуги и стоимость</h2>
+      <p>Все консультации проходят онлайн (Zoom / Telegram / WhatsApp)</p>
+    </div>
+    
+    <div class="price-card">
+      <div>
+        <h3>Первичная консультация</h3>
+        <p>Знакомство, обсуждение запроса, определение путей работы (60 минут)</p>
+      </div>
+      <div class="price">3 000 ₽</div>
+    </div>
+
+    <div class="price-card">
+      <div>
+        <h3>Индивидуальная консультация</h3>
+        <p>Глубокая работа с вашим запросом (55 минут)</p>
+      </div>
+      <div class="price">4 000 ₽</div>
+    </div>
+
+    <div class="price-card">
+      <div>
+        <h3>Пакет из 5 встреч</h3>
+        <p>Регулярная работа с более выгодной стоимостью сессии</p>
+      </div>
+      <div class="price">18 000 ₽</div>
+    </div>
+  </div>
+</section>
+
+<section id="process">
+  <div class="container">
+    <div class="section-title">
+      <h2>Как проходит наша встреча</h2>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <h4>Заявка</h4>
+        <p>Вы оставляете заявку на сайте или пишете мне в мессенджер.</p>
+      </div>
+      <div class="step">
+        <h4>Знакомство</h4>
+        <p>Мы созваниваемся на 15 минут, чтобы понять, комфортно ли нам работать вместе.</p>
+      </div>
+      <div class="step">
+        <h4>Сессия</h4>
+        <p>Встречаемся онлайн в назначенное время. В безопасной атмосфере обсуждаем то, что вас волнует.</p>
+      </div>
+      <div class="step">
+        <h4>Результат</h4>
+        <p>Вы получаете поддержку, новые инструменты и взгляд на ситуацию со стороны.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="contact-section">
+  <div class="container">
+    <div class="section-title">
+      <h2>Записаться на консультацию</h2>
+      <p>Оставьте свои контакты, и я свяжусь с вами в ближайшее время</p>
+    </div>
+    <form onsubmit="event.preventDefault(); alert('Спасибо! Ваша заявка отправлена. Я свяжусь с вами в ближайшее время.'); this.reset();">
+      <input type="text" placeholder="Ваше имя" required>
+      <input type="tel" placeholder="Телефон или Telegram" required>
+      <textarea placeholder="Коротко о том, что вас беспокоит (по желанию)"></textarea>
+      <button type="submit" class="btn">Отправить заявку</button>
+      <p style="text-align: center; font-size: 0.8rem; color: #888; margin-top: 10px;">
+        Нажимая кнопку, вы соглашаетесь с политикой конфиденциальности.
+      </p>
+    </form>
+  </div>
+</section>
+
+<footer>
+  © 2025 Анна Иванова — Психолог. Все права защищены.
+</footer>
+
+</body>
+</html>
